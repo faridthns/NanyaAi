@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "tailwindcss-animated";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+    themes: all;
+};
+
+@font-face {
+    font-family: satoshi;
+    src: url(./assets/fonts/Satoshi-Bold.otf);
+}
+
+* {
+    font-family: satoshi, Verdana, Geneva, Tahoma, sans-serif;
+}
