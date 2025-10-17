@@ -4,9 +4,8 @@ import { reqGroqAi } from "./utils/groq";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css"; // atau style lain
-// import { Light as SyntaxHighlight } from "react-syntax-highlighter";
-// import { lucario } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import "highlight.js/styles/github-dark.css";
+import { Toaster, toast } from "sonner";
 
 function App() {
   const [content, setContent] = useState("");
@@ -40,6 +39,9 @@ function App() {
   const handleReset = () => {
     setData("");
     setChat([]);
+    toast.success("Chat telah dihapus", {
+      duration: 3000, // hilang setelah 3 detik
+    })
   };
 
   // biar lansgung scroll ke pertanyaan baru
@@ -50,6 +52,23 @@ function App() {
 
   return (
     <main className={`flex flex-col ${chat.length > 0 ? "h-full" : null}`}>
+      {/* <div role="alert" className="alert alert-success w-4xl fixed top-3 left-1/2 -translate-x-1/2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>Your purchase has been confirmed!</span>
+      </div> */}
+      <Toaster position="top-center" richColors/>
       <section className="flex flex-col min-h-[90vh] justify-center items-center w-full mx-auto pt-5">
         {/* theme controller */}
         <div className="absolute top-0 right-0 p-3">
@@ -115,7 +134,9 @@ function App() {
         </div>
         <div
           className={`${
-            chat.length > 0 ? "fixed bottom-0 h-[60px] backdrop-blur-[5px]" : "h-fit"
+            chat.length > 0
+              ? "fixed bottom-0 h-[60px] backdrop-blur-[5px]"
+              : "h-fit"
           } mt-4 py-2 w-full`}
         >
           <form
